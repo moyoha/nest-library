@@ -7,7 +7,7 @@ export class DbService {
   @Inject('OPTIONS')
   private options: DbModuleOptions;
 
-  async read(): Promise<Record<string, any>[]> {
+  async read() {
     const filePath = this.options.path;
     try {
       await access(filePath);
@@ -21,10 +21,9 @@ export class DbService {
     if (!str) {
       return [];
     }
-
-    return JSON.parse(str) as Record<string, any>[];
+    return JSON.parse(str);
   }
-  async write(obj: Record<string, any>) {
+  async write(obj) {
     await writeFile(this.options.path, JSON.stringify(obj || []), {
       encoding: 'utf-8',
     });
